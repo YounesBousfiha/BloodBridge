@@ -4,4 +4,13 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+    <servlet>
+        <servlet-name>DonnerController</servlet-name>
+        <servlet-class>com.jartiste.bloodbridge.presentation.controller.DonnerController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DonnerController</servlet-name>
+        <url-pattern>/donneur</url-pattern>
+    </servlet-mapping>
 </web-app>
