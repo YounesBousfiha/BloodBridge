@@ -2,7 +2,7 @@ package com.jartiste.bloodbridge.domain.entity;
 
 
 import com.jartiste.bloodbridge.domain.enums.Contraindication;
-import com.jartiste.bloodbridge.domain.enums.StatusDonneur;
+import com.jartiste.bloodbridge.domain.enums.StatusDonner;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class Donor extends Personne {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private StatusDonneur statusDonneur;
+    private StatusDonner statusDonneur;
 
     @NotNull
     private LocalDate dernierDon;
@@ -38,11 +38,11 @@ public class Donor extends Personne {
         this.contraindications = contraindications;
     }
 
-    public StatusDonneur getStatusDonneur() {
+    public StatusDonner getStatusDonneur() {
         return statusDonneur;
     }
 
-    public void setStatusDonneur(StatusDonneur statusDonneur) {
+    public void setStatusDonneur(StatusDonner statusDonneur) {
         this.statusDonneur = statusDonneur;
     }
 
