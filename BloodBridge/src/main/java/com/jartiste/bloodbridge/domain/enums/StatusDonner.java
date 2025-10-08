@@ -1,6 +1,6 @@
 package com.jartiste.bloodbridge.domain.enums;
 
-public enum StatusDonneur {
+public enum StatusDonner {
     AVAILABLE,
     UNAVAILABLE,
     INELIGIBLE
