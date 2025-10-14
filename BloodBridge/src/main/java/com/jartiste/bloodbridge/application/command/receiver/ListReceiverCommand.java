@@ -29,17 +29,6 @@ public class ListReceiverCommand implements Command {
 
             List<ReceiverDTO> receiverList = receiverService.getAllReceivers();
 
-            receiverList.stream()
-                    .forEach(r -> logger.error("DEBUG 1: {}", r));
-
-            /*List<ReceiverDTO> updatedLists = receiverList.stream()
-                    .map(r -> {
-                        r.setRequiredBags(Integer.parseInt(r.getUrgencyLevel()));
-                        return r;
-                    })
-                    .peek((r) -> logger.error("DEBUG 2: {}", r))
-                    .toList();*/
-
             if(null == receiverList || receiverList.isEmpty()) {
                 request.getSession().setAttribute(ERROR, "No Receivers Yet");
                 return CommandResult.forward(VIEW_PATH);
