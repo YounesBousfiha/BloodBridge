@@ -8,6 +8,9 @@
   <name>BloodBridge Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+    <properties>
+        <sonar.organization>younesbousfiha</sonar.organization>
+    </properties>
   <dependencies>
 
         <dependency>
@@ -72,18 +75,34 @@
       <dependency>
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
-          <version>1.5.13</version>
+          <version>1.5.19</version>
       </dependency>
 
       <dependency>
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-core</artifactId>
-          <version>1.5.13</version>
+          <version>1.5.19</version>
       </dependency>
   </dependencies>
-  <build>
-    <finalName>BloodBridge</finalName>
-  </build>
+    <build>
+        <finalName>BloodBridge</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 
 
