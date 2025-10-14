@@ -3,6 +3,8 @@ package com.jartiste.bloodbridge.application.command.receiver;
 import com.jartiste.bloodbridge.application.command.Command;
 import com.jartiste.bloodbridge.application.command.CommandResult;
 import com.jartiste.bloodbridge.application.service.ReceiverService;
+import com.jartiste.bloodbridge.domain.enums.BloodType;
+import com.jartiste.bloodbridge.domain.enums.UrgentReceveur;
 import com.jartiste.bloodbridge.presentation.dto.ReceiverDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,11 +36,9 @@ public class CreateReceiverCommand implements Command {
             dto.setFirstName(firstName);
             dto.setLastName(lastName);
             dto.setCin(cin);
-            dto.setBloodType(bloodType);
+            dto.setBloodType(BloodType.valueOf(bloodType));
             dto.setPhoneNumber(telephone);
-            dto.setWeight(weight);
-            dto.setDateOfBirth(dateDeNaissance);
-            dto.setUrgencyLevel(urgencyLevel);
+            dto.setUrgencyLevel(UrgentReceveur.valueOf(urgencyLevel));
 
             receiverService.createReceiver(dto);
 
