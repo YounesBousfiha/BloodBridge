@@ -102,6 +102,14 @@
                                     <i class="fas fa-trash-alt text-lg"></i>
                                 </button>
                             </form>
+                            <button
+                                type="button"
+                                title="Assign Receiver"
+                                class="text-green-600 hover:text-green-800 flex items-center assign-receiver-btn"
+                                data-id="${donor.id}"
+                            >
+                                <i class="fas fa-link text-lg"></i>
+                            </button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -329,6 +337,30 @@
             </div>
         </div>
     </div>
+
+    <!-- Assign Receiver Modal -->
+    <div id="assignReceiverModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-80 relative">
+            <button type="button" id="closeAssignReceiverModal" class="absolute top-4 right-4 text-gray-400 hover:text-red-600 text-2xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold mb-6 text-green-700 text-center">Assign Receiver</h3>
+            <form id="assignReceiverForm" action="${pageContext.request.contextPath}/donors/assign" method="POST">
+                <input type="hidden" id="assignDonorId" name="donorId">
+                <div class="mb-6">
+                    <label for="receiverSelect" class="block text-sm font-medium text-gray-700">Select Receiver</label>
+                    <select id="receiverSelect" name="receiverId" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 p-2" required>
+                        <option value="">Select Receiver</option>
+                        <c:forEach var="receiver" items="${receivers}">
+                            <option value="${receiver.id}">${receiver.firstName} ${receiver.lastName} (${receiver.bloodType})</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" id="cancelAssignReceiver" class="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-gray-600">Cancel</button>
+                    <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800">Assign</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </section>
 
 <script src="<c:url value='/js/modal.js' />"></script>
@@ -444,6 +476,24 @@
             });
             <% session.removeAttribute("message"); %>
         }
+    });
+</script>
+<script>
+    // Assign Receiver Modal logic
+    document.querySelectorAll('.assign-receiver-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.getElementById('assignDonorId').value = this.dataset.id;
+            document.getElementById('assignReceiverModal').classList.remove('hidden');
+        });
+    });
+    document.getElementById('closeAssignReceiverModal').onclick = function() {
+        document.getElementById('assignReceiverModal').classList.add('hidden');
+    };
+    document.getElementById('cancelAssignReceiver').onclick = function() {
+        document.getElementById('assignReceiverModal').classList.add('hidden');
+    };
+    document.getElementById('assignReceiverModal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.add('hidden');
     });
 </script>
 <%@ include file="/WEB-INF/views/shared/footer.jsp" %>
