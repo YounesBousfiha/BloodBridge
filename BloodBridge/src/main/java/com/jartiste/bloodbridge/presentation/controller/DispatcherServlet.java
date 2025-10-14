@@ -1,6 +1,7 @@
 package com.jartiste.bloodbridge.presentation.controller;
 
 import com.jartiste.bloodbridge.application.command.*;
+import com.jartiste.bloodbridge.application.command.donation.CreateAssociationCommand;
 import com.jartiste.bloodbridge.application.command.donor.*;
 import com.jartiste.bloodbridge.application.command.receiver.CreateReceiverCommand;
 import com.jartiste.bloodbridge.application.command.receiver.DeleteReceiverCommand;
@@ -24,12 +25,9 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init() {
         /* DonorCommands List */
-
-
         commands.put("/donors/create", new CreateDonorCommand());
         commands.put("/donors/list", new ListDonorsCommand());
         commands.put("/donors/edit", new EditDonorCommand());
-        commands.put("/donors/associate", new AssociateDonorCommand());
         commands.put("/donors/delete", new DeleteDonorCommand());
 
         /* ReceiverCommandsList */
@@ -37,6 +35,11 @@ public class DispatcherServlet extends HttpServlet {
         commands.put("/receivers/list", new ListReceiverCommand());
         commands.put("/receivers/edit", new EditReceiverCommand());
         commands.put("/receivers/delete", new DeleteReceiverCommand());
+
+        /* association  */
+        commands.put("/donors/assign", new CreateAssociationCommand());
+
+
 
     }
 
