@@ -3,8 +3,11 @@ package com.jartiste.bloodbridge.application.command.donor;
 import com.jartiste.bloodbridge.application.command.Command;
 import com.jartiste.bloodbridge.application.command.CommandResult;
 import com.jartiste.bloodbridge.application.service.DonorService;
+import com.jartiste.bloodbridge.application.service.ReceiverService;
+import com.jartiste.bloodbridge.domain.entity.Receiver;
 import com.jartiste.bloodbridge.infrastructure.logging.AppLogger;
 import com.jartiste.bloodbridge.presentation.dto.DonorDTO;
+import com.jartiste.bloodbridge.presentation.dto.ReceiverDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,15 +27,23 @@ public class ListDonorsCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         DonorService donorService = getService(request, DonorService.class);
+        ReceiverService receiverService = getService(request, ReceiverService.class);
 
         if("GET".equalsIgnoreCase(request.getMethod())) {
             List<DonorDTO> donorList = donorService.findAllDonors();
+            List<ReceiverDTO> receiverList = receiverService.getAllReceivers();
 
             if(null == donorList || donorList.isEmpty()) {
                 request.getSession().setAttribute(ERROR, "No Donors Yet");
                 return CommandResult.forward(VIEW_PATH);
             }
 
+            if(null == receiverList || receiverList.isEmpty()) {
+                request.getSession().setAttribute(ERROR, "No Receivers Yet");
+                return CommandResult.forward(VIEW_PATH);
+            }
+
+            request.setAttribute("receivers", receiverList);
             request.setAttribute("donors", donorList);
 
 
