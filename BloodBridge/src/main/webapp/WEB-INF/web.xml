@@ -4,4 +4,19 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>com.jartiste.bloodbridge.presentation.controller.DispatcherServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/donors/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/receivers/*</url-pattern>
+    </servlet-mapping>
 </web-app>
