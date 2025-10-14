@@ -1,20 +1,20 @@
 package com.jartiste.bloodbridge.presentation.dto;
 
-import java.time.LocalDate;
+import com.jartiste.bloodbridge.domain.enums.BloodType;
+import com.jartiste.bloodbridge.domain.enums.StatusReceiver;
+import com.jartiste.bloodbridge.domain.enums.UrgentReceveur;
 
 public class ReceiverDTO {
     private Long id;
     private String firstName;
     private String lastName;
     private String cin;
-    private String bloodType;
+    private BloodType bloodType;
     private String phoneNumber;
-    private String urgencyLevel;
-    private String statusReceiver;
-    private String weight;
+    private UrgentReceveur urgencyLevel;
+    private StatusReceiver statusReceiver;
     private int requiredBags;
     private int receivedBags;
-    private String dateOfBirth;
 
     public ReceiverDTO() {
         // Default constructor
@@ -52,27 +52,11 @@ public class ReceiverDTO {
         this.cin = cin;
     }
 
-    public String getWeight() {
-        return weight;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-
-    public String getBloodType() {
+    public BloodType getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(String bloodType) {
+    public void setBloodType(BloodType bloodType) {
         this.bloodType = bloodType;
     }
 
@@ -84,19 +68,19 @@ public class ReceiverDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getUrgencyLevel() {
+    public UrgentReceveur getUrgencyLevel() {
         return urgencyLevel;
     }
 
-    public void setUrgencyLevel(String urgencyLevel) {
+    public void setUrgencyLevel(UrgentReceveur urgencyLevel) {
         this.urgencyLevel = urgencyLevel;
     }
 
-    public String getStatusReceiver() {
+    public StatusReceiver getStatusReceiver() {
         return statusReceiver;
     }
 
-    public void setStatusReceiver(String statusReceiver) {
+    public void setStatusReceiver(StatusReceiver statusReceiver) {
         this.statusReceiver = statusReceiver;
     }
 
@@ -127,10 +111,8 @@ public class ReceiverDTO {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", urgencyLevel='" + urgencyLevel + '\'' +
                 ", statusReceiver='" + statusReceiver + '\'' +
-                ", weight='" + weight + '\'' +
                 ", requiredBags=" + requiredBags +
                 ", receivedBags=" + receivedBags +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
                 '}';
     }
 }
