@@ -23,6 +23,14 @@ jobs:
       - name: Build with Maven
         run: cd BloodBridge && mvn clean verify
 
+      - name: Configure SonarQube properties
+        run: |
+          cd BloodBridge
+          echo "sonar.projectKey=YounesBousfiha_BloodBridge" > sonar-project.properties
+          echo "sonar.organization=younesbousfiha" >> sonar-project.properties
+          echo "sonar.sources=src" >> sonar-project.properties
+          echo "sonar.java.binaries=target/classes" >> sonar-project.properties
+
       - name:  SonarCloud Scan
         uses: sonarsource/sonarqube-scan-action@v2
         with:
@@ -30,5 +38,3 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_PROJECT_KEY: YounesBousfiha_BloodBridge
-          SONAR_ORGANIZATION: younesbousfiha
