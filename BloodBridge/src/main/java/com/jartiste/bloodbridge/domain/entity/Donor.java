@@ -6,16 +6,18 @@ import com.jartiste.bloodbridge.domain.enums.StatusDonner;
 
 import java.time.LocalDate;
 import java.util.Set;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 
 @Entity
+@Table(name = "donor")
 public class Donor extends Personne {
 
     @NotNull
+    @ElementCollection
+    @CollectionTable(name = "donor_contraindications", joinColumns = @JoinColumn(name = "donor_id"))
     @Enumerated(EnumType.STRING)
     private Set<Contraindication> contraindications;
 
@@ -24,6 +26,8 @@ public class Donor extends Personne {
     private StatusDonner statusDonneur;
 
     @NotNull
+    private Integer weight;
+
     private LocalDate dernierDon;
 
     public Donor() {
@@ -52,5 +56,30 @@ public class Donor extends Personne {
 
     public void setDernierDon(LocalDate dernierDon) {
         this.dernierDon = dernierDon;
+    }
+
+    public Integer getWeight() {
+        return this.weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return "Donor{" +
+                "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", cin='" + getCin() + '\'' +
+                ", bloodType=" + getBloodType() +
+                ", telephone='" + getTelephone() + '\'' +
+                ", dateDeNaissance=" + getDateDeNaissance() +
+                ", createdAt=" + getCreatedAt() +
+                "contraindications=" + contraindications +
+                ", statusDonneur=" + statusDonneur +
+                ", weight=" + weight +
+                ", dernierDon=" + dernierDon +
+                "} " + super.toString();
     }
 }

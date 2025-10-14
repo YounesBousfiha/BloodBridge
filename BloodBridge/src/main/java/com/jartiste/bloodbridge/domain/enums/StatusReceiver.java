@@ -1,6 +1,6 @@
 package com.jartiste.bloodbridge.domain.enums;
 
-public enum StatusReceveur {
+public enum StatusReceiver {
     EN_ATTENTE,
     SATISFAIT
 }

@@ -12,18 +12,17 @@
         </encoder>
     </appender>
 
-    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+   <!-- <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
             <driverClass>org.postgresql.Driver</driverClass>
             <url>jdbc:postgresql://localhost:5432/bloodbridge</url>
             <user>${DB_USERNAME}</user>
             <password>${DB_PASSWORD}</password>
         </connectionSource>
-    </appender>
+    </appender> -->
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
-        <appender-ref ref="DB" />
     </root>
 </configuration>

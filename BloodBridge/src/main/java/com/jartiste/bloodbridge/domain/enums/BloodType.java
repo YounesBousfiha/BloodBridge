@@ -8,5 +8,19 @@ public enum BloodType {
     B_PLUS,
     B_MOIN,
     O_PLUS,
-    O_MOIN
+    O_MOIN;
+
+
+    public boolean isCompatibleWith(BloodType bloodType) {
+        return switch (this) {
+            case AB_PLUS -> true;
+            case AB_MOIN -> bloodType == AB_MOIN || bloodType == A_MOIN || bloodType == B_MOIN || bloodType == O_MOIN;
+            case A_PLUS -> bloodType == A_PLUS || bloodType == A_MOIN || bloodType == O_PLUS || bloodType == O_MOIN;
+            case A_MOIN -> bloodType == A_MOIN || bloodType == O_MOIN;
+            case B_PLUS -> bloodType == B_PLUS || bloodType == B_MOIN || bloodType == O_PLUS || bloodType == O_MOIN;
+            case B_MOIN -> bloodType == B_MOIN || bloodType == O_MOIN;
+            case O_PLUS -> bloodType == O_PLUS || bloodType == O_MOIN;
+            case O_MOIN -> bloodType == O_MOIN;
+        };
+    }
 }

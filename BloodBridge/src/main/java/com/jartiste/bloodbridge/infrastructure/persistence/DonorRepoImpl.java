@@ -15,8 +15,6 @@ import java.util.Optional;
 
 public class DonorRepoImpl implements DonorRepository {
 
-    /* CHOF PLANIFICATION A BNADME 3AD KML */
-
     private final EntityManager em = EntityMangerConf.getEmf().createEntityManager();
 
     private final Logger logger = AppLogger.getLogger(DonorRepoImpl.class);
@@ -72,10 +70,20 @@ public class DonorRepoImpl implements DonorRepository {
     }
 
     @Override
+    public boolean isExist(Long id) {
+        try {
+            Donor donor = em.find(Donor.class, id);
+            return null != donor;
+        } catch (Exception e) {
+            throw  new DonorRepositoryException("Error while Checking isExist", e);
+        }
+    }
+
+    @Override
     public Optional<List<Donor>> findAll() {
         try {
             List<Donor> donors = em.createQuery("SELECT d FROM Donor d", Donor.class).getResultList();
-            return Optional.of(donors);
+            return Optional.ofNullable(donors);
         } catch (Exception e) {
             throw new DonorRepositoryException("Error find all donors", e);
         }

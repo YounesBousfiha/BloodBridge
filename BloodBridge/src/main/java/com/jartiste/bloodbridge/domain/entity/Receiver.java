@@ -1,16 +1,25 @@
 package com.jartiste.bloodbridge.domain.entity;
 
-import com.jartiste.bloodbridge.domain.enums.StatusReceveur;
+import com.jartiste.bloodbridge.domain.enums.StatusReceiver;
 import com.jartiste.bloodbridge.domain.enums.UrgentReceveur;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.Set;
 
+@Entity
+@Table(name = "receiver")
 public class Receiver extends Personne {
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
     private UrgentReceveur urgentReceveur;
-    private StatusReceveur statusReceveur;
-    private Set<Donor> donors;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private StatusReceiver statusReceiver;
 
+    @Column(name = "received_bags")
+    private int receivedBags;
 
     public Receiver() {
         /* Default constructor */
@@ -24,19 +33,39 @@ public class Receiver extends Personne {
         this.urgentReceveur = urgentReceveur;
     }
 
-    public StatusReceveur getStatusReceveur() {
-        return statusReceveur;
+    public StatusReceiver getStatusReceiver() {
+        return statusReceiver;
     }
 
-    public void setStatusReceveur(StatusReceveur statusReceveur) {
-        this.statusReceveur = statusReceveur;
+    public void setStatusReceiver(StatusReceiver statusReceiver) {
+        this.statusReceiver = statusReceiver;
     }
 
-    public Set<Donor> getDonors() {
-        return donors;
+    public int getReceivedBags() {
+        return receivedBags;
     }
 
-    public void setDonors(Set<Donor> donors) {
-        this.donors = donors;
+    public void setReceivedBags(int receivedBags) {
+        this.receivedBags = receivedBags;
+    }
+
+    public int getRequiredBags() {
+        return urgentReceveur.getRequiredBags();
+    }
+
+    @Override
+    public String toString() {
+        return "Receiver{" +
+                "id=" + getId() +
+                ", firstName=" + getFirstName() +
+                ", lastName=" + getLastName() +
+                ", cin=" + getCin() +
+                ", bloodType=" + getBloodType() +
+                ", telephone=" + getTelephone() +
+                ", dateDeNaissance=" + getDateDeNaissance() +
+                ", urgentReceveur=" + urgentReceveur +
+                ", statusReceiver=" + statusReceiver +
+                ", receivedBags=" + receivedBags +
+                "} " + super.toString();
     }
 }

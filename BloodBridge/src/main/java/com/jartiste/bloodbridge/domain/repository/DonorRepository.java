@@ -10,4 +10,5 @@ public interface DonorRepository {
     Optional<Donor> findById(Long id);
     void deleteById(Long id);
     Optional<List<Donor>> findAll();
+    boolean isExist(Long id);
 }

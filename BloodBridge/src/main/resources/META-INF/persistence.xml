@@ -4,20 +4,21 @@
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
 
-    <persistence-unit name="bloodbridgePU" transaction-type="JTA">
-
-        <!-- Connect to JNDI DataSource defined in context.xml -->
-        <jta-data-source>java:comp/env/jdbc/bloodbridgeDB</jta-data-source>
-
-        <!-- Entities -->
+    <persistence-unit name="bloodbridgePU" transaction-type="RESOURCE_LOCAL">
         <class>com.jartiste.bloodbridge.domain.entity.Donor</class>
         <class>com.jartiste.bloodbridge.domain.entity.Receiver</class>
+        <class>com.jartiste.bloodbridge.domain.entity.Donation</class>
 
-        <!-- JPA / Hibernate Settings -->
         <properties>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bloodbridge"/>
+            <property name="jakarta.persistence.jdbc.user" value="younes"/>
+            <property name="jakarta.persistence.jdbc.password" value="test123"/>
         </properties>
     </persistence-unit>
 </persistence>
