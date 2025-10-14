@@ -17,10 +17,10 @@ public class ReceiverMapper {
         dto.setFirstName(receiver.getFirstName());
         dto.setLastName(receiver.getLastName());
         dto.setCin(receiver.getCin());
-        dto.setBloodType(receiver.getBloodType().name());
+        dto.setBloodType(receiver.getBloodType());
         dto.setPhoneNumber(receiver.getTelephone());
-        dto.setUrgencyLevel(receiver.getUrgentReceveur().name());
-        dto.setStatusReceiver(receiver.getStatusReceiver().name());
+        dto.setUrgencyLevel(receiver.getUrgentReceveur());
+        dto.setStatusReceiver(receiver.getStatusReceiver());
         dto.setRequiredBags(receiver.getRequiredBags());
         dto.setReceivedBags(receiver.getReceivedBags());
         return dto;
@@ -34,10 +34,10 @@ public class ReceiverMapper {
         receiver.setFirstName(dto.getFirstName());
         receiver.setLastName(dto.getLastName());
         receiver.setCin(dto.getCin());
-        receiver.setBloodType(dto.getBloodType() != null ? Enum.valueOf(com.jartiste.bloodbridge.domain.enums.BloodType.class, dto.getBloodType()) : null);
+        receiver.setBloodType(dto.getBloodType());
         receiver.setTelephone(dto.getPhoneNumber());
-        receiver.setUrgentReceveur(dto.getUrgencyLevel() != null ? Enum.valueOf(UrgentReceveur.class, dto.getUrgencyLevel()) : null);
-        receiver.setStatusReceiver(dto.getStatusReceiver() != null ? Enum.valueOf(StatusReceiver.class, dto.getStatusReceiver()) : null);
+        receiver.setUrgentReceveur(dto.getUrgencyLevel());
+        receiver.setStatusReceiver(dto.getStatusReceiver());
         receiver.setReceivedBags(dto.getRequiredBags());
         receiver.setReceivedBags(dto.getReceivedBags());
         return receiver;
