@@ -56,12 +56,6 @@ public class EditDonorCommand implements Command {
             String dateDeNaissance = request.getParameter("dateDeNaissance");
             String weightStr = request.getParameter("weight");
 
-            logger.error("DEBUG: Received firstName => {} ", firstName);
-            logger.error("DEBUG: Received lastName => {} ", lastName);
-            logger.error("DEBUG: Received cin => {} ", cin);
-            logger.error("DEBUG: Received telephone => {} ", telephone);
-            logger.error("DEBUG: Received dateDeNaissance => {} ", dateDeNaissance);
-            logger.error("DEBUG: Received weightStr => {} ", weightStr);
 
             donorOpt.setFirstName(firstName);
             donorOpt.setLastName(lastName);
