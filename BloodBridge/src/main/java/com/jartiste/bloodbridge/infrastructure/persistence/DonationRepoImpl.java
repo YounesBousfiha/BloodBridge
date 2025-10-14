@@ -1,5 +1,8 @@
 package com.jartiste.bloodbridge.infrastructure.persistence;
 
+import com.jartiste.bloodbridge.domain.entity.Donation;
+import com.jartiste.bloodbridge.domain.entity.Donor;
+import com.jartiste.bloodbridge.domain.entity.Receiver;
 import com.jartiste.bloodbridge.domain.exception.DonationRepoException;
 import com.jartiste.bloodbridge.domain.repository.DonationRepository;
 import com.jartiste.bloodbridge.infrastructure.config.EntityMangerConf;
@@ -26,10 +29,18 @@ public class DonationRepoImpl implements DonationRepository {
         try {
             em.getTransaction().begin();
 
-            em.createNativeQuery("INSERT INTO donations (donor_id, receiver_id) VALUES (?, ?)")
-                    .setParameter(1, donorId)
-                    .setParameter(2, receiverId)
-                    .executeUpdate();
+            Donor donor = em.find(Donor.class, donorId);
+            Receiver receiver = em.find(Receiver.class, receiverId);
+            if (donor == null || receiver == null) {
+                logger.error("Donor or Receiver not found");
+                return false;
+            }
+            Donation donation = new Donation();
+            donation.setDonor(donor);
+            donation.setReceiver(receiver);
+            donation.setDonationDate(java.time.LocalDate.now());
+
+            em.persist(donation);
             em.getTransaction().commit();
 
             return true;
@@ -45,7 +56,7 @@ public class DonationRepoImpl implements DonationRepository {
     @Override
     public boolean hasDonorGivenToReceiver(Long donorId, Long receiverId) {
         try {
-            Long count = (Long) em.createNativeQuery("SELECT COUNT(*) FROM donations WHERE donor_id = ? AND receiver_id = ?")
+            Long count = (Long) em.createNativeQuery("SELECT COUNT(*) FROM donation WHERE donor_id = ? AND receiver_id = ?")
                     .setParameter(1, donorId)
                     .setParameter(2, receiverId)
                     .getSingleResult();
