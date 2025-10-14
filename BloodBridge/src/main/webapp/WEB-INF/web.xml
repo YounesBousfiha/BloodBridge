@@ -19,4 +19,8 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/receivers/*</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>com.jartiste.bloodbridge.infrastructure.bootstrap.AppBootStrap</listener-class>
+    </listener>
 </web-app>
