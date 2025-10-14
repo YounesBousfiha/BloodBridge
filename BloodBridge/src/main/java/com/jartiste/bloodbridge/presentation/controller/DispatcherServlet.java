@@ -1,10 +1,17 @@
 package com.jartiste.bloodbridge.presentation.controller;
 
 import com.jartiste.bloodbridge.application.command.*;
+import com.jartiste.bloodbridge.application.command.donor.*;
+import com.jartiste.bloodbridge.application.command.receiver.CreateReceiverCommand;
+import com.jartiste.bloodbridge.application.command.receiver.DeleteReceiverCommand;
+import com.jartiste.bloodbridge.application.command.receiver.EditReceiverCommand;
+import com.jartiste.bloodbridge.application.command.receiver.ListReceiverCommand;
+import com.jartiste.bloodbridge.infrastructure.logging.AppLogger;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,10 +19,13 @@ import java.util.Map;
 
 public class DispatcherServlet extends HttpServlet {
     private final Map<String, Command> commands = new HashMap<>();
+    private static final Logger logger = AppLogger.getLogger(DispatcherServlet.class);
 
     @Override
     public void init() {
         /* DonorCommands List */
+
+
         commands.put("/donors/create", new CreateDonorCommand());
         commands.put("/donors/list", new ListDonorsCommand());
         commands.put("/donors/edit", new EditDonorCommand());
@@ -23,10 +33,11 @@ public class DispatcherServlet extends HttpServlet {
         commands.put("/donors/delete", new DeleteDonorCommand());
 
         /* ReceiverCommandsList */
-        commands.put("/receiver/create", new CreateReceiverCommand());
-        commands.put("/receiver/list", new ListReceiverCommand());
-        commands.put("/receiver/edit", new EditReceiverCommand());
-        commands.put("/receiver/delete", new DeleteReceiverCommand());
+        commands.put("/receivers/create", new CreateReceiverCommand());
+        commands.put("/receivers/list", new ListReceiverCommand());
+        commands.put("/receivers/edit", new EditReceiverCommand());
+        commands.put("/receivers/delete", new DeleteReceiverCommand());
+
     }
 
     @Override
@@ -40,14 +51,22 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String path = req.getPathInfo();
+        String path = req.getServletPath() + req.getPathInfo();
 
         Command command = commands.get(path);
 
-        if(command != null) {
-            command.execute(req, res);
-        } else  {
+        if(null == command) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
         }
+
+        CommandResult result = command.execute(req, res);
+
+        if(result.isRedirect()) {
+            res.sendRedirect(result.getPath());
+        } else {
+            req.getRequestDispatcher(result.getPath()).forward(req, res);
+        }
+
     }
 }
