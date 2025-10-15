@@ -32,7 +32,7 @@ class ReceiverServiceTest {
 
     @BeforeEach
     void setUp(){
-
+        MockitoAnnotations.openMocks(this);
         dto = new ReceiverDTO();
         dto.setId(1L);
         dto.setFirstName("John");
@@ -47,7 +47,6 @@ class ReceiverServiceTest {
 
 
         receiver = ReceiverMapper.toEntity(dto);
-        MockitoAnnotations.openMocks(this);
         receiverService = new ReceiverService(receiverRepository);
     }
 
