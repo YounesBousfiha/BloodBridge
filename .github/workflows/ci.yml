@@ -23,6 +23,9 @@ jobs:
       - name: Build with Maven
         run: cd BloodBridge && mvn clean verify
 
+      - name: Run tests
+        run: cd BloodBridge && mvn clean test
+
       - name: Configure SonarQube properties
         run: |
           cd BloodBridge
@@ -30,6 +33,7 @@ jobs:
           echo "sonar.organization=younesbousfiha" >> sonar-project.properties
           echo "sonar.sources=src" >> sonar-project.properties
           echo "sonar.java.binaries=target/classes" >> sonar-project.properties
+          echo "sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml" >> sonar-project.properties
 
       - name:  SonarCloud Scan
         uses: sonarsource/sonarqube-scan-action@v2
