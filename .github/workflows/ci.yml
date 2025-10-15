@@ -34,6 +34,8 @@ jobs:
           echo "sonar.sources=src" >> sonar-project.properties
           echo "sonar.java.binaries=target/classes" >> sonar-project.properties
           echo "sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml" >> sonar-project.properties
+          echo "sonar.coverage.exclusions=**/test/**,**/*Test.java,**/*Tests.java" >> sonar-project.properties
+
 
       - name:  SonarCloud Scan
         uses: sonarsource/sonarqube-scan-action@v2
