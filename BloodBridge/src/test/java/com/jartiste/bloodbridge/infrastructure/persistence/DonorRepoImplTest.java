@@ -19,6 +19,7 @@ class DonorRepoImplTest {
 
     @BeforeAll
     static void initFactory() {
+        System.setProperty("test.active", "true");
         emf = Persistence.createEntityManagerFactory("testPU");
     }
 
