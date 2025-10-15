@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 class ReceiverServiceTest {
@@ -69,6 +70,15 @@ class ReceiverServiceTest {
     }
 
     @Test
+    void testCreateReceiver_Exception(){
+        when(receiverRepository.save(any(Receiver.class))).thenThrow(new RuntimeException("Database error"));
+
+        dto = receiverService.createReceiver(dto);
+
+        assertNull(dto);
+    }
+
+    @Test
     void testUpdateReceiver(){
 
         receiver.setFirstName("Hassan");
@@ -91,6 +101,15 @@ class ReceiverServiceTest {
 
     }
 
+    @Test
+    void testUpdateReceiver_Exception(){
+        when(receiverRepository.save(any(Receiver.class))).thenThrow(new RuntimeException("Database error"));
+
+        dto = receiverService.updateReceiver(dto);
+
+        assertNull(dto);
+    }
+
 
     @Test
     void testDeleteReceiver(){
@@ -99,6 +118,17 @@ class ReceiverServiceTest {
         boolean result = receiverService.deleteReceiver(1L);
 
         assertTrue(result);
+    }
+
+    @Test
+    void testDeleteReceiver_Exception(){
+        doNothing().when(receiverRepository).deleteById(1L);
+
+        when(receiverRepository.isExist(1L)).thenReturn(false);
+
+        boolean result = receiverService.deleteReceiver(1L);
+
+        assertFalse(result);
     }
 
     @Test
@@ -111,6 +141,24 @@ class ReceiverServiceTest {
     }
 
     @Test
+    void testGetAllReceiversWhenEmpty() {
+        when(receiverRepository.findAll()).thenReturn(Optional.empty());
+
+        List<ReceiverDTO> result = receiverService.getAllReceivers();
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void testGetAllReceiversWhenExceptionOccurs() {
+        when(receiverRepository.findAll()).thenThrow(new RuntimeException("Database error"));
+
+        List<ReceiverDTO> result = receiverService.getAllReceivers();
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
     void testGetReceiverById(){
 
         when(receiverRepository.isExist(1L)).thenReturn(true);
@@ -119,5 +167,23 @@ class ReceiverServiceTest {
         var result  = receiverService.getReceiverById(1L);
 
         assertEquals("John", result.getFirstName());
+    }
+
+    @Test
+    void testGetReceiverByIdWhenNotFound() {
+        when(receiverRepository.findById(1L)).thenReturn(Optional.empty());
+
+        ReceiverDTO result = receiverService.getReceiverById(1L);
+
+        assertNull(result);
+    }
+
+    @Test
+    void testGetReceiverByIdWhenExceptionOccurs() {
+        when(receiverRepository.findById(1L)).thenThrow(new RuntimeException("Database error"));
+
+        ReceiverDTO result = receiverService.getReceiverById(1L);
+
+        assertNull(result);
     }
 }
