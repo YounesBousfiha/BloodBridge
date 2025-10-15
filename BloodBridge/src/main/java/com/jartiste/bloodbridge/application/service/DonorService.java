@@ -78,6 +78,9 @@ public class DonorService {
             } else {
                 throw new DonorNotExists("No Such Donor");
             }
+        } catch (DonorNotExists e) {
+            logger.error("Donor not Found: {}. Exception {} ", donorId, e.getMessage(), e);
+            throw e;
         } catch (Exception e) {
             logger.error("Error while removing donor", e);
             return false;
@@ -118,16 +121,6 @@ public class DonorService {
             logger.error("Error while Loading Donors List", e);
             return List.of();
         }
-    }
-
-
-
-    public List<DonorDTO> getEligibleDonors() {
-        // call DonorRepository.findAll()
-        // filter by StatusDonner.ELIGIBLE
-        // map to DonorDTO
-        // return List<DonorDTO>
-        return null;
     }
 
     private void updateDonorStatus(Donor donor) {
