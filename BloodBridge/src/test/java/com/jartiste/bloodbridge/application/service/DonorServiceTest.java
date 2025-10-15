@@ -97,7 +97,7 @@ class DonorServiceTest {
     void testGetAllDonors() {
         when(this.donorRepository.findAll()).thenReturn(Optional.of(List.of(donor)));
 
-        var result  = donorService.findAllDonors();
+        List<DonorDTO> result  = donorService.findAllDonors();
 
         assertFalse(result.isEmpty());
     }
