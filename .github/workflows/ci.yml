@@ -24,7 +24,7 @@ jobs:
         run: cd BloodBridge && mvn clean verify
 
       - name: Run tests
-        run: cd BloodBridge && mvn clean test
+        run: cd BloodBridge && mvn clean test -Dtest.active=true
 
       - name: Configure SonarQube properties
         run: |

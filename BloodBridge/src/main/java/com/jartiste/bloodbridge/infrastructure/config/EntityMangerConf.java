@@ -8,7 +8,8 @@ public class EntityMangerConf {
 
     static {
         try {
-            emf = Persistence.createEntityManagerFactory("bloodbridgePU");
+            String persistenceUnit = System.getProperty("test.active") != null ? "testPU" : "bloodbridgePU";
+            emf = Persistence.createEntityManagerFactory(persistenceUnit);
         } catch (Exception e) {
             e.printStackTrace();
         }
