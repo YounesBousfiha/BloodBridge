@@ -7,21 +7,8 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-
-
-# STAGE 2: Handle JavaScript dependencies with Node.js and Tailwind CSS
-FROM node:20 AS js-build
-WORKDIR /frontend
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-
-
 # STAGE 3: Final stage to run the application
-FROM tomcat:10-jdk21
+FROM tomcat:10.1.30-jdk21-temurin
 COPY --from=build /app/target/BloodBridge.war /usr/local/tomcat/webapps/
-COPY --from=js-build /frontend/dist /usr/local/tomcat/webapps/BloodBridge/static
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
