@@ -16,9 +16,9 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bloodbridge"/>
-            <property name="jakarta.persistence.jdbc.user" value="younes"/>
-            <property name="jakarta.persistence.jdbc.password" value="test123"/>
+            <property name="jakarta.persistence.jdbc.url" value="${DB_URL}"/>
+            <property name="jakarta.persistence.jdbc.user" value="${DB_USER}"/>
+            <property name="jakarta.persistence.jdbc.password" value="${DB_PASSWORD}"/>
         </properties>
     </persistence-unit>
 
